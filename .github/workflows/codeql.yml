@@ -1,3 +1,5 @@
+# Calls the shared reusable CodeQL workflow (and3rn3t/.github).
+# Set `languages` to your project's languages: javascript, typescript, python, swift, etc.
 name: CodeQL Security Analysis
 
 on:
@@ -15,24 +17,6 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze Code
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        # Set to your project's languages: javascript, typescript, python, swift, etc.
-        language: ["javascript", "typescript"]
-    steps:
-      - uses: actions/checkout@v6
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
-        with:
-          languages: ${{ matrix.language }}
-          queries: security-and-quality
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v4
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4
-        with:
-          category: "/language:${{ matrix.language }}"
+    uses: and3rn3t/.github/.github/workflows/reusable-codeql.yml@main
+    with:
+      languages: '["javascript", "typescript"]'
